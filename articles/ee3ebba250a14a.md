@@ -96,11 +96,11 @@ model turns {
 この機能を最大化するためにいくつかのパターンがあります。
 
 - ドメインごとにファイルを整理
-  - 関連するモデルごとにファイルにまとめます。ユーザ関連のモデルは user.prisma,Post 関連のモデルは post.prisma に置く。
+  - 関連するモデルごとにファイルにまとめます。ユーザ関連のモデルは 「user.prisma」,Post 関連のモデルは 「post.prisma」 に置く。
 - 明確な命名規則を使用する
-  - スキーマファイル名は明確かつ簡潔でなければなりません。「myModels.prisma」や「CommentFeatureSchema.prisma」ではなく、user.prisma や post.prisma のような名前を使用してください。
+  - スキーマファイル名は明確かつ簡潔でなければなりません。「myModels.prisma」や「CommentFeatureSchema.prisma」ではなく、「user.prisma」 や 「post.prisma」 のような名前を使用してください。
 - ビルトインのスキーマファイル
-  - スキーマファイルはいくつあっても構いませんが、データソースとジェネレーターのブロックを定義する場所が必要です。「main.prisma」,「schema.prisma」,「base.prisma」はうまく機能するスキーマファイルです。
+  - スキーマファイルはいくつあっても構いませんが、datasource と generator のブロックを定義する場所が必要です。「main.prisma」,「schema.prisma」,「base.prisma」はうまく機能するスキーマファイルです。
 
 参考文献
 https://www.prisma.io/docs/orm/prisma-schema/overview/location#multi-file-prisma-schema
