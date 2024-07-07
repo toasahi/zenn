@@ -2,23 +2,26 @@
 title: "Prisma Multi-file"
 emoji: "✨"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["Prisma","typeORM","DB","TypeScript"]
+topics: ["Prisma", "typeORM", "DB", "TypeScript"]
 published: true
 ---
 
 ### Split your Schema
-Prisma v5.15.0でSchemaファイルの分割ができるようになりました🎉
+
+Prisma v5.15.0 で Schema ファイルの分割ができるようになりました 🎉
 
 **機能が追加された理由**
-これまではPrismaは、1つのスキーマファイルしかサポートしていませんでした...
-えっ！今までできなかったの？そうです！今までは、1つのスキーマファイルにDBのモデルを集約していました。
+これまでは Prisma は、1 つのスキーマファイルしかサポートしていませんでした...
+えっ！今までできなかったの？そうです！今までは、1 つのスキーマファイルに DB のモデルを集約していました。
 
 **今回**
-Prismaスキーマファイルを複数のファイルで使用できるようになり、データベーススキーマの管理性と構成性が向上し、大規模なプロジェクトでの作業が容易になりました。
+Prisma スキーマファイルを複数のファイルで使用できるようになり、データベーススキーマの管理性と構成性が向上し、大規模なプロジェクトでの作業が容易になりました。
 全てのモデルは全てのファイルを参照することができるので、リレーションはファイルを跨ぐことができます。
 
 **使い方**
-1. prismaSchemaFolderPreviewを有効化
+
+1. prismaSchemaFolderPreview を有効化
+
 ```jsx:schema.prisma
 generator client {
   provider        = "prisma-client-js"
@@ -27,14 +30,14 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL") 
+  url      = env("DATABASE_URL")
 }
 ```
 
-2. 複数のPrismaのスキーマファイルを使用するには、prismaディレクトリ内にschemaディレクトリを追加
+2. prisma ディレクトリ内に schema ディレクトリを追加
 
-スキーマ・ディレクトリに追加ファイルを作成できるようになった。
 ディレクトリ構造(リバーシの場合)
+
 ```
 ├── prisma
     └── schema   // <= schemaディレクトリの作成
@@ -44,6 +47,8 @@ datasource db {
         ├── squares.prisma
         └── turns.prisma
 ```
+
+スキーマ・ディレクトリに追加ファイルを作成する。
 
 ```jsx:game.prisma
 model games {
@@ -77,22 +82,24 @@ model turns {
 ```
 
 **複数ファイルのユースケース**
-プロジェクトが大きくなるにつれて、単一ファイルのPrismaスキーマでは最終的にサイズが大きくなり、効率的に管理ができなくなるという話を見聞きすることがあります。
+プロジェクトが大きくなるにつれて、単一ファイルの Prisma スキーマでは最終的にサイズが大きくなり、効率的に管理ができなくなるという話を見聞きすることがあります。
 
 この機能は、次のような場合に役に立ちます。
-- スキーマが複雑な場合
-    - スキーマに大きなモデルや複雑なリレーションがある場合、関連するモデルを別のファイルにすることで、スキーマの理解とナビゲートが容易になります。
-- 大規模なチーム
-    - 1つのPrismaスキーマファイルがあり、多くの開発者がコミットしている場合、日中にかなり厄介なマージ競合に遭遇する可能性があります。大きなスキーマを複数のファイルに分割することで、このような苦痛を減らすことができます。
 
-**複数ファイルのPrismaスキーマ Tips**
+- スキーマが複雑な場合
+  - スキーマに大きなモデルや複雑なリレーションがある場合、関連するモデルを別のファイルにすることで、スキーマの理解とナビゲートが容易になります。
+- 大規模なチーム
+  - 1 つの Prisma スキーマファイルがあり、多くの開発者がコミットしている場合、日中にかなり厄介なマージ競合に遭遇する可能性があります。大きなスキーマを複数のファイルに分割することで、このような苦痛を減らすことができます。
+
+**複数ファイルの Prisma スキーマ Tips**
 この機能を最大化するためにいくつかのパターンがあります
+
 - ドメインごとにファイルを整理
-    - 関連するモデルごとにファイルにまとめます。ユーザ関連のモデルはuser.prisma,Post関連のモデルはpost.prismaに置く。
+  - 関連するモデルごとにファイルにまとめます。ユーザ関連のモデルは user.prisma,Post 関連のモデルは post.prisma に置く。
 - 明確な命名規則を使用する
-    - スキーマファイル名は明確かつ簡潔でなければなりません。「myModels.prisma」や「CommentFeatureSchema.prisma」ではなく、user.prismaやpost.prismaのような名前を使用してください。
+  - スキーマファイル名は明確かつ簡潔でなければなりません。「myModels.prisma」や「CommentFeatureSchema.prisma」ではなく、user.prisma や post.prisma のような名前を使用してください。
 - ビルトインのスキーマファイル
-    - スキーマファイルはいくつあっても構いませんが、データソースとジェネレーターのブロックを定義する場所が必要です。「main.prisma」,「schema.prisma」,「base.prisma」はうまく機能するスキーマファイルです。
+  - スキーマファイルはいくつあっても構いませんが、データソースとジェネレーターのブロックを定義する場所が必要です。「main.prisma」,「schema.prisma」,「base.prisma」はうまく機能するスキーマファイルです。
 
 参考文献
 https://www.prisma.io/docs/orm/prisma-schema/overview/location#multi-file-prisma-schema
