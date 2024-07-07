@@ -2,7 +2,7 @@
 title: "Prisma Multi-file"
 emoji: "✨"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["Prisma", "typeORM", "DB", "TypeScript"]
+topics: ["Prisma", "typeORM", "DB", "TypeScript","Node.js","JavaScript","Next.js"]
 published: true
 ---
 
