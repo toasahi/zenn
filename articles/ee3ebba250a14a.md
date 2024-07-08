@@ -1,5 +1,5 @@
 ---
-title: "Prisma Multi-file"
+title: "Prisma Split Schema File"
 emoji: "✨"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
